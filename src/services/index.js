@@ -1,0 +1,8 @@
+module.exports.authService = require('./auth.service');
+module.exports.emailService = require('./email.service');
+module.exports.tokenService = require('./token.service');
+module.exports.userService = require('./user.service');
+module.exports.scorePredictionService = require('./scorePredction.service');
+module.exports.pricePredictionService = require('./pricePrediction.service'); // Importing the price prediction service
+module.exports.pokerTornamentService = require('./pokerTornament.service'); // Importing the poker tournament service
+module.exports.privacyPolicyService = require('./privacyPolicy.service'); // Importing the privacy policy service
