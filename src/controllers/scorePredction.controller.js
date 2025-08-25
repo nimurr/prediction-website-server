@@ -4,8 +4,11 @@ const catchAsync = require("../utils/catchAsync");
 
 const createScorePrediction = catchAsync(async (req, res) => {
     // Logic for creating a score prediction
+
+    const sportImage = req.file ? `/upload/image/${req.file.filename}` : undefined;
+
     const data = req.body;
-    const response = await scorePredictionService.createScorePrediction(data);
+    const response = await scorePredictionService.createScorePrediction({ ...data, sportImage });
 
     res.status(201).json({
         message: 'Score prediction created successfully',
@@ -39,9 +42,11 @@ const getSinglePredictions = catchAsync(async (req, res) => {
 
 const editScorePrediction = catchAsync(async (req, res) => {
     // Logic for editing a score prediction
+    const sportImage = req.file ? `/upload/image/${req.file.filename}` : undefined;
+
     const { id } = req.params;
     const data = req.body;
-    const response = await scorePredictionService.editScorePrediction(id, data);
+    const response = await scorePredictionService.editScorePrediction(id, { ...data, sportImage });
 
     if (!response) {
         return res.status(404).json({

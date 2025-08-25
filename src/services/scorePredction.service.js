@@ -1,6 +1,6 @@
 const { ScorePrediction, SubmitPrediction } = require("../models");
 
-const createScorePrediction = async (data) => {
+const createScorePrediction = async ({ ...data }) => {
 
     // Logic for creating a score prediction
     const response = await ScorePrediction.create(data);
@@ -29,9 +29,9 @@ const getSinglePredictions = async (id) => {
     return response;
 }
 
-const editScorePrediction = async (id, data) => {
-    // Logic for editing a score prediction 
-    const response = await ScorePrediction.findByIdAndUpdate(id, data, { new: true });
+const editScorePrediction = async (id, { ...data }) => {
+    // Logic for editing a score prediction
+    const response = await ScorePrediction.findByIdAndUpdate(id, { ...data }, { new: true });
     if (!response) {
         throw new Error("Score prediction not found or failed to update");
     }

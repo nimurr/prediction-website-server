@@ -5,7 +5,7 @@ const userValidation = require("../../validations/user.validation");
 const userController = require("../../controllers/user.controller");
 const userFileUploadMiddleware = require("../../middlewares/fileUpload");
 const convertHeicToPngMiddleware = require("../../middlewares/converter");
-const UPLOADS_FOLDER_USERS = "./public/uploads/users";
+const UPLOADS_FOLDER_USERS = "./public/upload/image";
 
 
 const uploadUsers = userFileUploadMiddleware(UPLOADS_FOLDER_USERS);
@@ -19,7 +19,7 @@ router
   .patch(
     auth("common"),
     validate(userValidation.updateUser),
-    [uploadUsers.single("image")],
+    [uploadUsers.single("profileImage")],
     convertHeicToPngMiddleware(UPLOADS_FOLDER_USERS),
     userController.updateProfile
   );

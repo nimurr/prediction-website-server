@@ -2,7 +2,11 @@ const { pricePredictionService } = require("../services");
 const catchAsync = require("../utils/catchAsync");
 
 const createPricePrediction = catchAsync(async (req, res) => {
-    const response = await pricePredictionService.createPricePrediction(req.body);
+
+    // const sportImage = req.file ? `/upload/image/${req.file.filename}` : undefined;
+    const bitcoinImage = req.file ? `/upload/image/${req.file.filename}` : undefined;
+
+    const response = await pricePredictionService.createPricePrediction({ ...req.body, bitcoinImage });
     res.status(201).send({
         message: 'Price prediction created successfully',
         status: 'success',
@@ -33,7 +37,8 @@ const getPricePredictionById = catchAsync(async (req, res) => {
 
 const updatePricePrediction = catchAsync(async (req, res) => {
     const { id } = req.params;
-    const response = await pricePredictionService.updatePricePrediction(id, req.body);
+    const bitcoinImage = req.file ? `/upload/image/${req.file.filename}` : undefined;
+    const response = await pricePredictionService.updatePricePrediction(id, { ...req.body, bitcoinImage });
     res.status(200).send({
         message: 'Price prediction updated successfully',
         status: 'success',

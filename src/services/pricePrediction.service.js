@@ -1,6 +1,6 @@
 const { PricePrediction, SubmitPricePrediction } = require("../models");
 
-const createPricePrediction = async (data) => {
+const createPricePrediction = async ({ ...data }) => {
 
     const response = await PricePrediction.create(data);
     if (!response) {
@@ -25,8 +25,8 @@ const getPricePredictionById = async (id) => {
     }
     return response;
 }
-const updatePricePrediction = async (id, data) => {
-    const response = await PricePrediction.findByIdAndUpdate(id, data, { new: true });
+const updatePricePrediction = async (id, { ...data }) => {
+    const response = await PricePrediction.findByIdAndUpdate(id, { ...data }, { new: true });
     if (!response) {
         throw new Error("Failed to update price prediction");
     }
