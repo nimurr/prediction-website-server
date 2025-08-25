@@ -1,52 +1,62 @@
 const mongoose = require('mongoose');
 
-const ReviewSchema = new mongoose.Schema({
+const TakeReviewSchema = new mongoose.Schema({
     image: {
         type: String,
-        required: true,
+        required: true
     },
     bonusTitle: {
         type: String,
-        required: true,
+        required: true
     },
     freeSpinsBonus: {
         type: String,
-        required: true,
+        required: false
     },
     lastUpdateDate: {
         type: Date,
-        required: true,
+        required: true
     },
     adminAvgRating: {
         type: Number,
-        required: true,
+        required: false,
+        min: 0,
+        max: 5
     },
     userAvgRating: {
         type: Number,
-        required: true,
+        required: false,
+        min: 0,
+        max: 5
     },
     summaryTitle: {
         type: String,
-        required: true,
+        required: true
     },
-    allInfo: {
-        type: [String],
-        default: [],
-        required: true,
-    },
-    positivesSides: {
-        type: [String],
-        default: [],
-    },
-    negativesSides: {
-        type: [String],
-        default: [],
-    },
-    otherAllInfoTitleDescriptionImage: {
-        type: [String],
-        default: [],
+    allInfo: [
+        {
+            title: { type: String, required: true },
+            subTitle: { type: String, required: true }
+        }
+    ],
+    positivesSides: [
+        { type: String }
+    ],
+    negativesSides: [
+        { type: String }
+    ],
+    otherAllInfoTitleDescriptionImage: [
+        {
+            title: { type: String, required: true },
+            ImageUrl: { type: String, required: true }
+        }
+    ],
+    reviewedUsers: {
+        // this is the array
+        type: [mongoose.Schema.Types.ObjectId],
+        ref: 'TakeReview', required: true,
+        default: []
     }
-
 }, { timestamps: true });
 
-module.exports = mongoose.model('Review', ReviewSchema);
+module.exports = mongoose.model('Review', TakeReviewSchema);

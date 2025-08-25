@@ -4,7 +4,6 @@ const catchAsync = require("../utils/catchAsync");
 
 const createReview = catchAsync(async (req, res) => {
     const data = req.body;
-
     const response = await casinoReviewsService.createReview(data);
 
     res.status(201).json({
@@ -14,15 +13,27 @@ const createReview = catchAsync(async (req, res) => {
     });
 });
 
+const getAllReviews = catchAsync(async (req, res) => {
+    const response = await casinoReviewsService.getAllReviews();
+
+    res.status(200).json({
+        status: "success",
+        message: "Reviews retrieved successfully",
+        data: response
+    });
+});
 
 
+const getSingleReview = catchAsync(async (req, res) => {
+    const { id } = req.params;
+    const response = await casinoReviewsService.getSingleReview(id);
 
-
-
-
-
-
-
+    res.status(200).json({
+        status: "success",
+        message: "Review retrieved successfully",
+        data: response
+    });
+});
 
 
 const takeReview = catchAsync(async (req, res) => {
@@ -40,5 +51,7 @@ const takeReview = catchAsync(async (req, res) => {
 
 module.exports = {
     createReview,
+    getAllReviews,
+    getSingleReview,
     takeReview
 };
