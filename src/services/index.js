@@ -6,3 +6,4 @@ module.exports.scorePredictionService = require('./scorePredction.service');
 module.exports.pricePredictionService = require('./pricePrediction.service'); // Importing the price prediction service
 module.exports.pokerTornamentService = require('./pokerTornament.service'); // Importing the poker tournament service
 module.exports.privacyPolicyService = require('./privacyPolicy.service'); // Importing the privacy policy service
+module.exports.casinoReviewsService = require('./casinoReviews.service'); // Importing the casino reviews service

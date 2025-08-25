@@ -8,6 +8,8 @@ const scorePricePredictionRoute = require("./pricePrediction.routes"); // Import
 const pokerTornamentRoute = require("./pokerTornament.routes"); // Importing the poker tournament route
 const privacyPolicyRoute = require("./privacyPolicy.routes"); // Importing the privacy policy route
 
+const casinoReviewsRoute = require("./casinoReviews.routes"); // Importing the casino reviews route
+
 const router = express.Router();
 
 const defaultRoutes = [
@@ -31,7 +33,10 @@ const defaultRoutes = [
     path: "/poker-tournament",
     route: pokerTornamentRoute, // Adding the poker tournament route
   },
-
+  {
+    path: "/casino-reviews",
+    route: casinoReviewsRoute, // Adding the casino reviews route
+  },
 
 
 
