@@ -25,7 +25,8 @@ const pricePredictionSchema = new mongoose.Schema({
     required: [true, "Prediction deadline is required"],
   },
   applyPricePredictions: {
-    type: [String], // array of predictions
+    type: [mongoose.Schema.Types.ObjectId], // array of predictions
+    ref: 'SubmitPricePrediction',
     default: [],    // empty by default
   }
 }, {

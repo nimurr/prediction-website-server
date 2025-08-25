@@ -30,7 +30,8 @@ const scorePredictionSchema = new mongoose.Schema({
         required: [true, "Prediction deadline is required"], // ✅ fixed
     },
     applyAllPredictions: {
-        type: [String],
+        type: [mongoose.Schema.Types.ObjectId],
+        ref: 'SubmitPrediction',
         default: [], // ✅ must be an empty array
     }
 }, {

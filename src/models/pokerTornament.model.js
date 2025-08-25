@@ -43,7 +43,8 @@ const pokerTournamentSchema = new mongoose.Schema({
     trim: true,
   },
   applyPokerTournamentUsers: {
-    type: [String], // list of user IDs / emails / names
+    type: [mongoose.Schema.Types.ObjectId], // list of user IDs
+    ref: 'JoinPokerTournament',
     default: [],    // empty array by default
   }
 }, {

@@ -11,7 +11,7 @@ const createReview = async (data) => {
 };
 
 const getAllReviews = async () => {
-    const reviews = await Review.find();
+    const reviews = await Review.find({}).populate("reviewedUsers");
     if (!reviews) {
         throw new Error('Failed to retrieve reviews');
     }
@@ -19,7 +19,7 @@ const getAllReviews = async () => {
 };
 
 const getSingleReview = async (id) => {
-    const review = await Review.findById(id);
+    const review = await Review.findById(id).populate("reviewedUsers");
     if (!review) {
         throw new Error('Failed to retrieve review');
     }
