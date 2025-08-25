@@ -5,7 +5,6 @@ const catchAsync = require("../utils/catchAsync");
 const takeReview = catchAsync(async (req, res) => {
     const data = req.body;
 
-
     const response = await casinoReviewsService.takeReview(data);
 
     res.status(201).json({
