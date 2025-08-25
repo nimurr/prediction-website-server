@@ -15,17 +15,17 @@ mongoose.connect(config.mongoose.url, config.mongoose.options).then(() => {
   });
 
   //initializing socket io
-  const socketIo = require("socket.io");
-  const socketIO = require("./utils/socketIO");
-  const io = socketIo(server, {
-    cors: {
-      origin: "*"
-    },
-  });
+  // const socketIo = require("socket.io");
+  // const socketIO = require("./utils/socketIO");
+  // const io = socketIo(server, {
+  //   cors: {
+  //     origin: "*"
+  //   },
+  // });
 
-  socketIO(io);
+  // socketIO(io);
 
-  global.io = io;
+  // global.io = io;
   server.listen(config.port, process.env.BACKEND_IP, () => {
     // logger.info(`Socket IO listening to port ${config.port}`);
   });

@@ -1,4 +1,4 @@
-const { PricePrediction } = require("../models");
+const { PricePrediction, SubmitPricePrediction } = require("../models");
 
 const createPricePrediction = async (data) => {
 
@@ -27,7 +27,7 @@ const getPricePredictionById = async (id) => {
 }
 const updatePricePrediction = async (id, data) => {
     const response = await PricePrediction.findByIdAndUpdate(id, data, { new: true });
-    if (!response) {    
+    if (!response) {
         throw new Error("Failed to update price prediction");
     }
     return response;
@@ -40,11 +40,21 @@ const deletePricePrediction = async (id) => {
     return response;
 }
 
+// here care a some api for submit price prediction
+
+const submitPricePrediction = async (data) => {
+    const response = await SubmitPricePrediction.create(data);
+    if (!response) {
+        throw new Error("Failed to submit price prediction");
+    }
+    return response;
+};
 
 module.exports = {
     createPricePrediction,
     getAllPricePredictions,
     getPricePredictionById,
     updatePricePrediction,
-    deletePricePrediction
+    deletePricePrediction,
+    submitPricePrediction
 };

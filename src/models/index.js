@@ -11,3 +11,4 @@ module.exports.ScorePrediction = require('./scorePrediction.model');
 module.exports.SubmitPrediction = require('./submitPrediction.model');
 module.exports.PricePrediction = require('./pricePrediction.model');
 module.exports.PokerTournament = require('./pokerTornament.model');
+module.exports.SubmitPricePrediction = require('./submitPricePrediction.model');

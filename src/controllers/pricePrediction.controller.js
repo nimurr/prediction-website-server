@@ -51,12 +51,25 @@ const deletePricePrediction = catchAsync(async (req, res) => {
     });
 });
 
+// here care a some api for submit price prediction
+
+
+const submitPricePrediction = catchAsync(async (req, res) => {
+    const response = await pricePredictionService.submitPricePrediction(req.body);
+    res.status(201).send({
+        message: 'Price prediction submitted successfully',
+        status: 'success',
+        code: 201,
+        data: response,
+    });
+});
 
 module.exports = {
     createPricePrediction,
     getAllPricePredictions,
     getPricePredictionById,
     updatePricePrediction,
-    deletePricePrediction
+    deletePricePrediction,
+    submitPricePrediction,
 
 };
