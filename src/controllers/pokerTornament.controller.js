@@ -4,7 +4,8 @@ const catchAsync = require("../utils/catchAsync");
 
 const createPokerTornament = catchAsync(async (req, res) => {
     // Logic for creating a poker tournament prediction
-    const response = await pokerTornamentService.createPokerTornament(req.body);
+    const uploadPokerTournamentImage = req.file ? `/upload/image/${req.file.filename}` : undefined;
+    const response = await pokerTornamentService.createPokerTornament({ ...req.body, uploadPokerTournamentImage });
     res.status(201).json({
         message: "Poker tournament created successfully",
         status: "success",
@@ -35,7 +36,8 @@ const getPokerTournamentById = catchAsync(async (req, res) => {
 });
 const updatePokerTournament = catchAsync(async (req, res) => {
     // Logic for updating a poker tournament
-    const response = await pokerTornamentService.updatePokerTournament(req.params.id, req.body);
+    const uploadPokerTournamentImage = req.file ? `/upload/image/${req.file.filename}` : undefined;
+    const response = await pokerTornamentService.updatePokerTournament(req.params.id, { ...req.body, uploadPokerTournamentImage });
     res.status(200).json({
         message: "Poker tournament updated successfully",
         status: "success",

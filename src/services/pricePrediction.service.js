@@ -47,6 +47,19 @@ const submitPricePrediction = async (data) => {
     if (!response) {
         throw new Error("Failed to submit price prediction");
     }
+
+    // 2. Find the PricePrediction document
+    const pricePrediction = await PricePrediction.findById(data.pricePredictionId);
+    if (!pricePrediction) {
+        throw new Error("PricePrediction not found");
+    }
+
+    // 3. Push the new prediction ID into the array
+    pricePrediction.applyPricePredictions.push(response._id);
+
+    // 4. Save the updated document
+    await pricePrediction.save();
+
     return response;
 };
 

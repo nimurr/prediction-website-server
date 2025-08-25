@@ -1,6 +1,6 @@
 const { PokerTournament, JoinPokerTournament } = require("../models");
 
-const createPokerTornament = async (data) => {
+const createPokerTornament = async ({ ...data }) => {
     const response = await PokerTournament.create(data);
     return response;
 }
@@ -20,10 +20,9 @@ const getPokerTournamentById = async (id) => {
     }
     return response;
 }
-const updatePokerTournament = async (id, data) => {
-    const response = await PokerTournament.findByIdAndUpdate(id, data, {
-        new:
-            true, runValidators: true
+const updatePokerTournament = async (id, { ...data }) => {
+    const response = await PokerTournament.findByIdAndUpdate(id, { ...data }, {
+        new: true, runValidators: true
     });
     if (!response) {
         throw new Error("Poker tournament not found");
@@ -42,8 +41,21 @@ const deletePokerTournament = async (id) => {
 
 const joinPokerTournament = async (data) => {
     const response = await JoinPokerTournament.create(data);
+    if (!response) {
+        throw new Error("Failed to join poker tournament");
+    }
+
+    const applyAllPredictions = await PokerTournament.findById(data.pokertournamentId);
+    if (!applyAllPredictions) {
+        throw new Error("PokerTournament not found");
+    }
+
+    applyAllPredictions.applyPokerTournamentUsers.push(response._id);
+    await applyAllPredictions.save();
+
     return response;
 }
+
 
 module.exports = {
     createPokerTornament,
