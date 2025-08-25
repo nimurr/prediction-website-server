@@ -2,6 +2,10 @@ const mongoose = require("mongoose");
 
 const submitPredictionSchema = new mongoose.Schema({
   userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+  isWinner: {
+    type: Boolean,
+    default: false,
+  },
   predictionId: { type: mongoose.Schema.Types.ObjectId, ref: "Prediction", required: true },
   bitcointalkUsername: { type: String, required: true },
   bitcoinAddress: { type: String, required: true },

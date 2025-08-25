@@ -1,4 +1,4 @@
-const { PokerTournament } = require("../models");
+const { PokerTournament, JoinPokerTournament } = require("../models");
 
 const createPokerTornament = async (data) => {
     const response = await PokerTournament.create(data);
@@ -38,12 +38,18 @@ const deletePokerTournament = async (id) => {
     return response;
 }
 
+// here create a service for submit  poker tornament
 
+const joinPokerTournament = async (data) => {
+    const response = await JoinPokerTournament.create(data);
+    return response;
+}
 
 module.exports = {
     createPokerTornament,
     getAllPokerTournaments,
     getPokerTournamentById,
     updatePokerTournament,
-    deletePokerTournament
+    deletePokerTournament,
+    joinPokerTournament
 };

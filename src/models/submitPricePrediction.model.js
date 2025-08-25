@@ -28,6 +28,10 @@ const PredictionSchema = new mongoose.Schema({
         required: false,
         match: [/.+@.+\..+/, 'Please enter a valid email address'], // basic email validation
     },
+    isWinner: {
+        type: Boolean,
+        default: false,
+    },
 }, { timestamps: true });
 
 module.exports = mongoose.model('SubmitPricePrediction', PredictionSchema);

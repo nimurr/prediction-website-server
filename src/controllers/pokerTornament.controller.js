@@ -45,8 +45,8 @@ const updatePokerTournament = catchAsync(async (req, res) => {
 });
 const deletePokerTournament = catchAsync(async (req, res) => {
     // Logic for deleting a poker tournament
-    const resposne =  await pokerTornamentService.deletePokerTournament(req.params.id);
-    
+    const resposne = await pokerTornamentService.deletePokerTournament(req.params.id);
+
     res.status(200).json({
         message: "Poker tournament deleted successfully",
         status: "success",
@@ -55,13 +55,26 @@ const deletePokerTournament = catchAsync(async (req, res) => {
     });
 });
 
+// here create a api for submit Join poker tornament
 
+
+const joinPokerTournament = catchAsync(async (req, res) => {
+    // Logic for joining a poker tournament
+    const response = await pokerTornamentService.joinPokerTournament(req.body);
+    res.status(200).json({
+        message: "Joined poker tournament successfully",
+        status: "success",
+        code: 200,
+        data: response
+    });
+});
 
 
 module.exports = {
     createPokerTornament,
     getAllPokerTournaments,
-    getPokerTournamentById, 
+    getPokerTournamentById,
     updatePokerTournament,
-    deletePokerTournament
+    deletePokerTournament,
+    joinPokerTournament
 };
