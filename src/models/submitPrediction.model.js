@@ -11,6 +11,7 @@ const submitPredictionSchema = new mongoose.Schema({
   bitcoinAddress: { type: String, required: true },
   casinoUsername: { type: String, required: true },
   email: { type: String },
+  selectTeam: { type: String, required: true },
   predictionSide: { type: String, enum: ["Yes", "No"], required: true },
   status: { type: String, enum: ["submitted", "pending", "completed"], default: "submitted" },
 }, { timestamps: true });

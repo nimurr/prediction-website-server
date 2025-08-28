@@ -19,6 +19,7 @@ const createUser = catchAsync(async (req, res) => {
 });
 
 const getUsers = catchAsync(async (req, res) => {
+
   const filter = pick(req.query, ["name", "role", "gender"]);
   const options = pick(req.query, ["sortBy", "limit", "page"]);
   const result = await userService.queryUsers(filter, options);
@@ -66,6 +67,10 @@ const getUser = catchAsync(async (req, res) => {
     throw new ApiError(httpStatus.NOT_FOUND, "User not found");
   }
 
+  user = user.toObject(); // convert Mongoose doc to plain object
+  delete user.password;
+  delete user.oneTimeCode;
+
   res.status(httpStatus.OK).json(
     response({
       message: "User",
@@ -75,6 +80,7 @@ const getUser = catchAsync(async (req, res) => {
     })
   );
 });
+
 
 const updateUser = catchAsync(async (req, res) => {
   if (req.body.interest) {
@@ -107,7 +113,7 @@ const updateProfile = catchAsync(async (req, res) => {
   if (req.file) {
     req.body.profileImage = `/upload/image/${req.file.filename}`;
   }
- 
+
 
   // Set fullName if firstName or lastName is provided
   if (!req.body.fullName && (req.body.firstName || req.body.lastName)) {
@@ -151,21 +157,15 @@ const getDashboardStatus = catchAsync(async (req, res) => {
 });
 
 const blockUser = catchAsync(async (req, res) => {
-  const user = await userService.blockUser(req.params.userId);
+  const { user, message } = await userService.blockUser(req.params.userId);
   if (!user) {
     throw new ApiError(httpStatus.NOT_FOUND, "User not found");
   }
 
-  if (user.isBlocked) {
-    throw new ApiError(httpStatus.BAD_REQUEST, "User is already blocked");
-  }
-
-  user.isBlocked = true;
-  await user.save();
 
   res.status(httpStatus.OK).json(
     response({
-      message: "User Blocked",
+      message: message,
       status: "OK",
       statusCode: httpStatus.OK,
       data: user,

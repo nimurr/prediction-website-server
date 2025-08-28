@@ -18,35 +18,40 @@ const createUser = async (userBody) => {
 };
 
 
-
 const queryUsers = async (filter, options) => {
   const query = {};
 
-  // Loop through each filter field and add conditions if they exist
-  for (const key of Object.keys(filter)) {
-    if (
-      (key === "fullName" || key === "email" || key === "username") &&
-      filter[key] !== ""
-    ) {
-      query[key] = { $regex: filter[key], $options: "i" }; // Case-insensitive regex search for name
-    } else if (filter[key] !== "") {
-      query[key] = filter[key];
-    }
+  // ✅ Enforce role = "user" no matter what
+  query.role = "user";
+
+  // Apply other filters
+  if (filter.fullName) {
+    query.fullName = { $regex: filter.fullName, $options: "i" };
   }
 
+  if (filter.email) {
+    query.email = { $regex: filter.email, $options: "i" };
+  }
+
+  if (filter.username) {
+    query.username = { $regex: filter.username, $options: "i" };
+  }
+
+  if (filter.gender) {
+    query.gender = filter.gender;
+  }
+
+  // Use pagination
   const users = await User.paginate(query, options);
-
-  // Convert height and age to feet/inches here...
-
   return users;
 };
 
 
 
 const getUserById = async (id) => {
-  // i want to return the user with all info by id
-  return User.findById(id);
+  return User.findById(id).select('+password +securitySettings +fcmToken +isResetPassword +oneTimeCode +isEmailVerified +isDeleted +isBlocked');
 };
+
 
 const getUserByEmail = async (email) => {
   return User.findOne({ email });
@@ -110,7 +115,7 @@ const isUpdateUser = async (userId, updateBody) => {
 
 
 const getDashboardStatus = async () => {
-  const totalUsers = await User.countDocuments({ isDeleted: false });
+  const totalUsers = await User.countDocuments({ isDeleted: false, role: "user" });
   const totalPoker = await PokerTournament.countDocuments();
   const totalPricePredictions = await PricePrediction.countDocuments(); // Placeholder, replace with actual logic if needed
   const totalScorePredictions = await ScorePrediction.countDocuments(); // Placeholder, replace with actual logic if needed
@@ -118,7 +123,7 @@ const getDashboardStatus = async () => {
   // daily new users & last 30 days
   const usersActivity = await User.aggregate([
     {
-      $match: { isDeleted: false },
+      $match: { isDeleted: false, role: "user" },
     },
     {
       $group: {
@@ -151,7 +156,7 @@ const getDashboardStatus = async () => {
   ]);
 
   // resent 10 users 
-  const recentUsers = await User.find({ isDeleted: false })
+  const recentUsers = await User.find({ isDeleted: false, role: "user" })
     .sort({ createdAt: -1 })
     .limit(10)
     .select("fullName email role createdAt");
@@ -172,9 +177,19 @@ const blockUser = async (userId) => {
   if (!user) {
     throw new ApiError(httpStatus.NOT_FOUND, "User not found");
   }
-  user.isBlocked = true;
-  await user.save();
-  return user;
+  let message = '';
+  if (user.isBlocked) {
+    user.isBlocked = false;
+    await user.save();
+    message = 'User unblocked successfully';
+  } else {
+    user.isBlocked = true;
+    await user.save();
+    message = 'User blocked successfully';
+  }
+
+
+  return { user, message };
 };
 
 module.exports = {

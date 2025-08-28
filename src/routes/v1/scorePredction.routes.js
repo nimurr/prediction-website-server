@@ -25,6 +25,7 @@ router.delete('/delete/:id', auth("admin"), scorePredictionController.deleteScor
 
 
 router.post("/submit-prediction", scorePredictionController.submitUserPrediction);
-
+router.get("/full-predictions", scorePredictionController.fullDetailsPredictionByIdAnduserId);
+router.patch("/declare-winning", scorePredictionController.declareWinning);
 
 module.exports = router;

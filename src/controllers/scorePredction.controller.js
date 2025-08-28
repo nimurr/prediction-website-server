@@ -77,16 +77,39 @@ const deleteScorePrediction = catchAsync(async (req, res) => {
 });
 
 const submitUserPrediction = catchAsync(async (req, res) => {
-    const data = req.body; 
+    const data = req.body;
     const response = await scorePredictionService.submitUserPrediction(data);
 
     res.status(200).json({
+        code: 200,
         message: 'User prediction submitted successfully',
         data: response
     });
 });
 
 
+const fullDetailsPredictionByIdAnduserId = catchAsync(async (req, res) => {
+
+    // search params for userId and predictionId
+    const { userId, predictionId } = req.query;
+
+    const response = await scorePredictionService.fullDetailsPredictionByIdAnduserId(userId, predictionId);
+    res.status(200).json({
+        message: 'User predictions retrieved successfully',
+        data: response
+    });
+});
+
+
+const declareWinning = catchAsync(async (req, res) => {
+    const { userId, predictionId } = req.query;
+    const response = await scorePredictionService.declareWinning(userId, predictionId);
+    res.status(200).json({
+        code: 200,
+        message: 'Winning declared successfully',
+        data: response
+    });
+});
 
 module.exports = {
     createScorePrediction,
@@ -94,7 +117,7 @@ module.exports = {
     getSinglePredictions,
     editScorePrediction,
     deleteScorePrediction,
-
-
+    fullDetailsPredictionByIdAnduserId,
+    declareWinning,
     submitUserPrediction
 };
