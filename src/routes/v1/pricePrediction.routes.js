@@ -22,11 +22,12 @@ router.patch('/edit/:id', auth("admin"),
     [uploadUsers.single("bitcoinImage")],
     convertHeicToPngMiddleware(UPLOADS_FOLDER_USERS),
     pricePredictionController.updatePricePrediction); // Assuming you have an update function
-    
+
 router.delete('/delete/:id', auth("admin"), pricePredictionController.deletePricePrediction); //
 
 // here care a some api for submit price prediction
 
 router.post('/submit', pricePredictionController.submitPricePrediction);
+router.get("/full-predictions", pricePredictionController.fullDetailsPricePredictionByIdAnduserId);
 
 module.exports = router;

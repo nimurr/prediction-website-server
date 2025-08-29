@@ -69,6 +69,17 @@ const submitPricePrediction = catchAsync(async (req, res) => {
     });
 });
 
+const fullDetailsPricePredictionByIdAnduserId = catchAsync(async (req, res) => {
+    const { userId, predictionId } = req.query;
+    const response = await pricePredictionService.fullDetailsPricePredictionByIdAnduserId(userId, predictionId);
+    res.status(200).send({
+        message: 'Full details retrieved successfully',
+        status: 'success',
+        code: 200,
+        data: response,
+    });
+});
+
 module.exports = {
     createPricePrediction,
     getAllPricePredictions,
@@ -76,5 +87,5 @@ module.exports = {
     updatePricePrediction,
     deletePricePrediction,
     submitPricePrediction,
-
+    fullDetailsPricePredictionByIdAnduserId
 };

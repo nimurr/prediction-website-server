@@ -19,6 +19,10 @@ const PredictionSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    predictedPrice: {
+        type: Number,
+        required: true,
+    },
     casinoUsername: {
         type: String,
         required: true,

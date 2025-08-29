@@ -63,11 +63,20 @@ const submitPricePrediction = async (data) => {
     return response;
 };
 
+const fullDetailsPricePredictionByIdAnduserId = async (userId, predictionId) => {
+    const response = await SubmitPricePrediction.findOne({ userId, pricePredictionId: predictionId }).populate("userId");
+    if (!response) {
+        throw new Error("No prediction found for the given user and prediction ID");
+    }
+    return response;
+};
+
 module.exports = {
     createPricePrediction,
     getAllPricePredictions,
     getPricePredictionById,
     updatePricePrediction,
     deletePricePrediction,
-    submitPricePrediction
+    submitPricePrediction,
+    fullDetailsPricePredictionByIdAnduserId
 };
