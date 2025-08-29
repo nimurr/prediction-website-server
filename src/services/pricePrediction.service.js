@@ -43,6 +43,13 @@ const deletePricePrediction = async (id) => {
 // here care a some api for submit price prediction
 
 const submitPricePrediction = async (data) => {
+
+    const find = await SubmitPricePrediction.findOne({ userId: data.userId, pricePredictionId: data.pricePredictionId });
+    if (find) {
+        throw new Error("User has already submitted a prediction for this match");
+    }
+    // 1. Create the prediction
+
     const response = await SubmitPricePrediction.create(data);
     if (!response) {
         throw new Error("Failed to submit price prediction");
@@ -64,12 +71,38 @@ const submitPricePrediction = async (data) => {
 };
 
 const fullDetailsPricePredictionByIdAnduserId = async (userId, predictionId) => {
-    const response = await SubmitPricePrediction.findOne({ userId, pricePredictionId: predictionId }).populate("userId");
+    const predictionInfo = await PricePrediction.findById(predictionId);
+    const userInfo = await SubmitPricePrediction.find({ userId, pricePredictionId: predictionId }).populate("userId");
+    if (!predictionInfo || !userInfo) {
+        throw new Error("No data found");
+    }
+    const response = {
+        predictionInfo,
+        userInfo
+    };
+    return response;
+};
+
+const declareWinning = async (userId, predictionId) => {
+
+    // if already declared
+    const alreadyDeclared = await SubmitPricePrediction.findOne({ userId, pricePredictionId: predictionId, isWinner: true });
+    if (alreadyDeclared) {
+        throw new Error("User has already been declared the winner");
+    }
+
+    const response = await SubmitPricePrediction.findOneAndUpdate(
+        { userId, pricePredictionId: predictionId },
+        { isWinner: true },
+        { new: true }
+    );
     if (!response) {
-        throw new Error("No prediction found for the given user and prediction ID");
+        throw new Error("User not found or failed to declare winner");
     }
     return response;
 };
+
+
 
 module.exports = {
     createPricePrediction,
@@ -78,5 +111,6 @@ module.exports = {
     updatePricePrediction,
     deletePricePrediction,
     submitPricePrediction,
-    fullDetailsPricePredictionByIdAnduserId
+    fullDetailsPricePredictionByIdAnduserId,
+    declareWinning
 };

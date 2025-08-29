@@ -29,5 +29,6 @@ router.delete('/delete/:id', auth("admin"), pricePredictionController.deletePric
 
 router.post('/submit', pricePredictionController.submitPricePrediction);
 router.get("/full-predictions", pricePredictionController.fullDetailsPricePredictionByIdAnduserId);
+router.patch("/declare-winning", pricePredictionController.declareWinning);
 
 module.exports = router;
