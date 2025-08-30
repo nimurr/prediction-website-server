@@ -11,6 +11,10 @@ const JoinPokerTournamentSchema = new mongoose.Schema({
         required: true,
         ref: 'PokerTournament', // optional reference to Poker Tournament collection
     },
+    predictedPrice: {
+        type: Number,
+        required: [true, "Predicted price is required"],
+    },
     bitcoinAddress: {
         type: String,
         required: true,

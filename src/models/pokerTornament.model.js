@@ -5,6 +5,7 @@ const pokerTournamentSchema = new mongoose.Schema({
     type: String,
     required: [true, "Poker tournament image is required"],
   },
+
   pokerTournamentTitle: {
     type: String,
     required: [true, "Poker tournament title is required"],

@@ -40,15 +40,21 @@ const deletePokerTournament = async (id) => {
 // here create a service for submit  poker tornament
 
 const joinPokerTournament = async (data) => {
+    const find = await JoinPokerTournament.findOne({ userId: data.userId, pokertournamentId: data.pokertournamentId });
+    if (find) {
+        throw new Error("User has already joined this poker tournament");
+    }
+    const applyAllPredictions = await PokerTournament.findById(data.pokertournamentId);
+    if (!applyAllPredictions) {
+        throw new Error("PokerTournament not found");
+    }
+
     const response = await JoinPokerTournament.create(data);
     if (!response) {
         throw new Error("Failed to join poker tournament");
     }
 
-    const applyAllPredictions = await PokerTournament.findById(data.pokertournamentId);
-    if (!applyAllPredictions) {
-        throw new Error("PokerTournament not found");
-    }
+
 
     applyAllPredictions.applyPokerTournamentUsers.push(response._id);
     await applyAllPredictions.save();
