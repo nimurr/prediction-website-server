@@ -5,6 +5,7 @@ const scorePredictionSchema = new mongoose.Schema({
         type: String,
         required: [true, "Sport Image is required"], // ✅ fixed
     },
+
     sportTitle: {
         type: String,
         required: [true, "Sport title is required"], // ✅ fixed

@@ -5,6 +5,10 @@ const TakeReviewSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    casinoLink: {
+        type: String,
+        default: null
+    },
     bonusTitle: {
         type: String,
         required: true
