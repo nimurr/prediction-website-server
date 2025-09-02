@@ -40,9 +40,18 @@ const takeReview = async (data) => {
     return review;
 }
 
+const getAllThisPostReviews = async (id) => {
+    const response = await TakeReview.find({ postId: id });
+    if (!response) {
+        throw new Error('Review not Found !!!')
+    }
+    return response
+}
+
 module.exports = {
     createReview,
     getAllReviews,
     getSingleReview,
-    takeReview
+    takeReview,
+    getAllThisPostReviews
 };

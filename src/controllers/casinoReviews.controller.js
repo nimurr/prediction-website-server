@@ -48,10 +48,21 @@ const takeReview = catchAsync(async (req, res) => {
     });
 });
 
+const getAllThisPostReviews = catchAsync(async (req, res) => {
+    const { id } = req.params;
+    const response = await casinoReviewsService.getAllThisPostReviews(id)
+    res.status(200).json({
+        status: "success",
+        message: "Review Get successfully",
+        data: response
+    });
+})
+
 
 module.exports = {
     createReview,
     getAllReviews,
     getSingleReview,
-    takeReview
+    takeReview,
+    getAllThisPostReviews
 };

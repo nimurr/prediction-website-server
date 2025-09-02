@@ -62,6 +62,19 @@ const joinPokerTournament = async (data) => {
     return response;
 }
 
+const fullDetailsPokerPredictionByIdAnduserId = async (userId, predictionId) => {
+    const pokerTournament = await PokerTournament.findById(predictionId);
+    const userInfo = await JoinPokerTournament.find({ userId, pokertournamentId: predictionId }).populate("userId");
+    if (!pokerTournament || !userInfo) {
+        throw new Error("No data found");
+    }
+    const response = {
+        pokerTournament,
+        userInfo
+    };
+    return response;
+};
+
 
 module.exports = {
     createPokerTornament,
@@ -69,5 +82,6 @@ module.exports = {
     getPokerTournamentById,
     updatePokerTournament,
     deletePokerTournament,
-    joinPokerTournament
+    joinPokerTournament,
+    fullDetailsPokerPredictionByIdAnduserId
 };

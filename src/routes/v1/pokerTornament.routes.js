@@ -26,5 +26,6 @@ router.delete("/delete/:id", auth("admin"), pokerTornamentController.deletePoker
 
 router.post("/join-tournament", auth("common"), pokerTornamentController.joinPokerTournament);
 
+router.get("/full-poker-prediction", pokerTornamentController.fullDetailsPokerPredictionByIdAnduserId);
 
 module.exports = router;
