@@ -173,6 +173,20 @@ const blockUser = catchAsync(async (req, res) => {
   );
 });
 
+const getMyAllPredictions = catchAsync(async (req, res) => {
+  const { id } = req.params;
+
+  const data = await userService.getMyAllPredictions(id);
+  res.status(httpStatus.OK).json(
+    response({
+      message: "My All Predictions",
+      status: "OK",
+      statusCode: httpStatus.OK,
+      data: data,
+    })
+  );
+});
+
 
 
 module.exports = {
@@ -185,4 +199,5 @@ module.exports = {
   deleteUser,
   getDashboardStatus,
   blockUser,
+  getMyAllPredictions
 };

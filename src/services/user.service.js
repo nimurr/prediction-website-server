@@ -1,5 +1,5 @@
 const httpStatus = require("http-status");
-const { User, PokerTournament, PricePrediction, ScorePrediction } = require("../models");
+const { User, PokerTournament, PricePrediction, ScorePrediction, SubmitPricePrediction, SubmitPrediction, JoinPokerTournament } = require("../models");
 const ApiError = require("../utils/ApiError");
 const { sendEmailVerification } = require("./email.service");
 const unlinkImages = require("../common/unlinkImage");
@@ -192,6 +192,22 @@ const blockUser = async (userId) => {
   return { user, message };
 };
 
+
+const getMyAllPredictions = async (userId) => {
+
+  const scorePredictions = await SubmitPrediction.find({ userId }).populate('predictionId');
+  const predictions = await SubmitPricePrediction.find({ userId }).populate('pricePredictionId');
+  const pokerPrediction = await JoinPokerTournament.find({ userId }).populate('pokertournamentId');
+
+  const all = {
+    scorePredictions,
+    predictions,
+    pokerPrediction
+  }
+
+  return all;
+};
+
 module.exports = {
   createUser,
   queryUsers,
@@ -201,5 +217,6 @@ module.exports = {
   deleteUserById,
   isUpdateUser,
   getDashboardStatus,
-  blockUser
+  blockUser,
+  getMyAllPredictions
 };

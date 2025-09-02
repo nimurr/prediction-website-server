@@ -38,8 +38,6 @@ const defaultRoutes = [
     route: casinoReviewsRoute, // Adding the casino reviews route
   },
 
-
-
   {
     path: "/privacy-policy",
     route: privacyPolicyRoute, // Adding the privacy policy route

@@ -117,7 +117,16 @@ const userSchema = mongoose.Schema(
       type: Boolean,
       default: false
     },
-
+    bitcointalkUsername: {
+      type: String,
+      required: false,
+      default: null
+    },
+    bitcoinAddress: {
+      type: String,
+      required: false,
+      default: null
+    },
     securitySettings: {
       recoveryEmail: {
         type: String,

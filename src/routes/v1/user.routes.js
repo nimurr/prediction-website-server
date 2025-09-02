@@ -38,5 +38,9 @@ router
 router
   .patch("/block/:userId", auth("admin"), userController.blockUser)
 
+router
+  .route("/my-prediction/all/:id",)
+  .get(userController.getMyAllPredictions);
+
 
 module.exports = router;

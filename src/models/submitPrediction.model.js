@@ -6,13 +6,13 @@ const submitPredictionSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
-  predictionId: { type: mongoose.Schema.Types.ObjectId, ref: "Prediction", required: true },
+  predictionId: { type: mongoose.Schema.Types.ObjectId, ref: "ScorePrediction", required: true },
   bitcointalkUsername: { type: String, required: true },
   bitcoinAddress: { type: String, required: true },
   casinoUsername: { type: String, required: true },
   email: { type: String },
   selectTeam: { type: String, required: true },
-  predictionSide: { type: String, enum: ["Yes", "No"], required: true },
+  predictionSide: { type: String, required: true },
   status: { type: String, enum: ["submitted", "pending", "completed"], default: "submitted" },
 }, { timestamps: true });
 
