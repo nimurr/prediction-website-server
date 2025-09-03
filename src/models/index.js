@@ -15,3 +15,4 @@ module.exports.SubmitPricePrediction = require('./submitPricePrediction.model');
 module.exports.JoinPokerTournament = require('./joinPokerTournament.model');
 module.exports.Review = require('./review.model');
 module.exports.TakeReview = require('./takeReview.model');
+module.exports.Ads = require('./ads.model');

@@ -15,9 +15,9 @@ const pricePredictionSchema = new mongoose.Schema({
     required: false, // optional
     trim: true,
   },
-  joinLink: {
-    type: String,
-    required: [true, "Join link is required"],
+  predictedPrice: {
+    type: Number,
+    required: [true, "Predicted Price is required"],
     trim: true,
   },
   predictionDeadline: {

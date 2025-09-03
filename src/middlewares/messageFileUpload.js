@@ -22,9 +22,9 @@ module.exports = function (UPLOADS_FOLDER) {
   });
 
   const allowedTypes = [
-    'application/pdf', 
-    'application/msword', 
-    'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 
+    'application/pdf',
+    'application/msword',
+    'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
     'image',
     'audio',
     'video'

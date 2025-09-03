@@ -1,4 +1,4 @@
-const { PrivacyPolicy } = require("../models");
+const { PrivacyPolicy, Ads } = require("../models");
 
 const getPrivacyPolicy = async () => {
     const response = await PrivacyPolicy.findOne();
@@ -31,7 +31,39 @@ const updatePrivacyPolicy = async (data) => {
         return savedResponse;
     }
 }
+
+const createAddAds = async (data) => {
+    try {
+        const ad = new Ads({
+            adsImage: data.adsImage,
+            adsLink: data.adsLink,
+            adsTitle: data.adsTitle
+        });
+
+        const response = await ad.save();
+        console.log(response);
+        return response;
+    } catch (error) {
+        console.error("Error creating ad:", error);
+        throw error;
+    }
+};
+
+
+const updateAddAds = async ({ data, id }) => {
+    const updatedAd = await Ads.findByIdAndUpdate(
+        id,
+        { $set: data },
+        { new: true, runValidators: true }
+    );
+    return updatedAd;
+};
+
+
+
 module.exports = {
     getPrivacyPolicy,
-    updatePrivacyPolicy
+    updatePrivacyPolicy,
+    createAddAds,
+    updateAddAds
 };

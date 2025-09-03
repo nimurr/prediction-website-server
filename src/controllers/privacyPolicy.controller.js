@@ -20,7 +20,42 @@ const updatePrivacyPolicy = catchAsync(async (req, res) => {
 });
 
 
+const createAddAds = catchAsync(async (req, res) => {
+
+    console.log(req.body)
+
+    if (req.file) {
+        req.body.adsImage = `/upload/image/${req.file.filename}`;
+    }
+
+    const response = await privacyPolicyService.createAddAds(req.body);
+
+
+    res.status(200).json({
+        message: "Privacy Policy updated successfully.",
+        data: response
+    });
+});
+
+const updateAddAds = catchAsync(async (req, res) => {
+    if (req.file) {
+        req.body.adsImage = `/upload/image/${req.file.filename}`;
+    }
+
+    const data = req.body;
+    const { id } = req.params; // <-- typo fixed: params not perams
+
+    const response = await privacyPolicyService.updateAddAds({ data, id });
+
+    res.status(200).json({
+        message: "Ad updated successfully.",
+        data: response
+    });
+});
+
 module.exports = {
     getPrivacyPolicy,
-    updatePrivacyPolicy
+    updatePrivacyPolicy,
+    createAddAds,
+    updateAddAds
 };
