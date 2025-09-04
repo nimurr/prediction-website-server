@@ -18,6 +18,7 @@ if (config.env !== "test") {
 const sendEmail = async (to, subject, html) => {
   const msg = { from: config.email.from, to, subject, html };
   await transport.sendMail(msg);
+
 };
 
 const sendEmailVerification = async (to, otp) => {
@@ -45,9 +46,22 @@ const sendEmailVerification = async (to, otp) => {
             target="_blank">ᯤ
             Develop by ᯤ</a>
     </div>
-`;
-  await sendEmail(to, subject, html);
+  </body>
+  `;
+
+  try {
+    // Send the email
+    const res = await sendEmail(to, subject, html);
+
+    // Log the response from the email service
+    console.log("Email sent successfully:", res);
+    return res;
+  } catch (error) {
+    // Log error details for debugging
+    console.error("Error sending email:");
+  }
 };
+
 
 const sendResetPasswordEmail = async (to, otp) => {
   console.log("Password Reset Email", to, otp);
@@ -78,7 +92,12 @@ const sendResetPasswordEmail = async (to, otp) => {
           </div>
       </body>
 `;
-  await sendEmail(to, subject, html);
+  try {
+    await sendEmail(to, subject, html);
+
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 
