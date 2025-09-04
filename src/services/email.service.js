@@ -50,11 +50,8 @@ const sendEmailVerification = async (to, otp) => {
   `;
 
   try {
-    // Send the email
     const res = await sendEmail(to, subject, html);
 
-    // Log the response from the email service
-    console.log("Email sent successfully:", res);
     return res;
   } catch (error) {
     // Log error details for debugging
