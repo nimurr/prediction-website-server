@@ -63,19 +63,24 @@ const joinPokerTournament = async (data) => {
 }
 
 const fullDetailsPokerPredictionByIdAnduserId = async (userId, predictionId) => {
-    const pokerTournament = await PokerTournament.findById(predictionId).populate("applyPokerTournamentUsers");
-    
-    const userInfo = await JoinPokerTournament.find({ userId, pokertournamentId: predictionId }).populate("userId");
-   
+    const pokerTournament = await PokerTournament.findById(predictionId)
+        .populate({
+            path: "applyPokerTournamentUsers",
+            match: { userId: userId } // only include this user
+        });
+
+    const userInfo = await JoinPokerTournament.find({
+        userId,
+        pokertournamentId: predictionId
+    }).populate("userId");
+
     if (!pokerTournament || !userInfo) {
         throw new Error("No data found");
     }
-    const response = {
-        pokerTournament,
-        userInfo
-    };
-    return response;
+
+    return { pokerTournament, userInfo };
 };
+
 
 const declareWinning = async (userId, predictionId) => {
 
