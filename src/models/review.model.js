@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const TakeReviewSchema = new mongoose.Schema({
     image: {
         type: String,
-        required: true
+        default: null
     },
     casinoLink: {
         type: String,
@@ -11,19 +11,21 @@ const TakeReviewSchema = new mongoose.Schema({
     },
     bonusTitle: {
         type: String,
-        required: true
+        default: null
     },
     freeSpinsBonus: {
         type: String,
-        required: false
+        required: false,
+        default: null
     },
     lastUpdateDate: {
         type: Date,
-        required: true
+        default: null
     },
     adminAvgRating: {
         type: Number,
         required: false,
+        default: null,
         min: 0,
         max: 5
     },
@@ -31,11 +33,11 @@ const TakeReviewSchema = new mongoose.Schema({
         type: Number,
         required: false,
         min: 0,
-        max: 5
+        max: 5,
+        default: null
     },
     summaryTitle: {
         type: String,
-        required: true
     },
     allInfo: [
         {
@@ -51,14 +53,14 @@ const TakeReviewSchema = new mongoose.Schema({
     ],
     otherAllInfoTitleDescriptionImage: [
         {
-            title: { type: String, required: true },
-            ImageUrl: { type: String, required: true }
+            description: { type: String, },
+            image: { type: String, }
         }
     ],
     reviewedUsers: {
         // this is the array
         type: [mongoose.Schema.Types.ObjectId],
-        ref: 'TakeReview', required: true,
+        ref: 'TakeReview',
         default: []
     }
 }, { timestamps: true });

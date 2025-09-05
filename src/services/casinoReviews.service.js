@@ -1,14 +1,39 @@
-const { TakeReview, Review } = require("../models");
+const { TakeReview, Review, AddNewSection, HandleChangeImage } = require("../models");
 
 
 
+// service
 const createReview = async (data) => {
     const review = await Review.create(data);
     if (!review) {
         throw new Error('Failed to create review');
     }
+
+    console.log(review);
     return review;
 };
+
+const mainReviewDelete = async (id) => {
+    const review = await Review.deleteOne({ _id: id });
+    if (!review) {
+        throw new Error('Failed to create review');
+    }
+
+    return review;
+};
+
+
+
+const handleChangeImage = async (data) => {
+    const review = await HandleChangeImage.create(data);
+    if (!review) {
+        throw new Error('Failed to create review');
+    }
+
+    console.log(review);
+    return review;
+};
+
 
 const getAllReviews = async () => {
     const reviews = await Review.find({}).populate("reviewedUsers");
@@ -48,10 +73,27 @@ const getAllThisPostReviews = async (id) => {
     return response
 }
 
+const addNewSection = (data) => {
+    const response = AddNewSection.create(data)
+    return response;
+}
+
+const addNewSectionDelete = (id) => {
+    const response = AddNewSection.deleteOne({ _id: id })
+    return response;
+}
+
+
+
+
 module.exports = {
     createReview,
+    handleChangeImage,
+    mainReviewDelete,
     getAllReviews,
     getSingleReview,
     takeReview,
-    getAllThisPostReviews
+    getAllThisPostReviews,
+    addNewSection,
+    addNewSectionDelete
 };

@@ -16,3 +16,6 @@ module.exports.JoinPokerTournament = require('./joinPokerTournament.model');
 module.exports.Review = require('./review.model');
 module.exports.TakeReview = require('./takeReview.model');
 module.exports.Ads = require('./ads.model');
+module.exports.AddNewSection = require('./addNewSection.model')
+module.exports.HandleChangeImage = require('./handleChangeImage.model')
+
