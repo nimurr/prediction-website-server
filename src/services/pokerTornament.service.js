@@ -66,7 +66,7 @@ const fullDetailsPokerPredictionByIdAnduserId = async (userId, predictionId) => 
     const pokerTournament = await PokerTournament.findById(predictionId)
         .populate({
             path: "applyPokerTournamentUsers",
-            match: { userId: userId } // only include this user
+            match: { userId } // only include this user
         });
 
     const userInfo = await JoinPokerTournament.find({
