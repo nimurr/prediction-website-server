@@ -20,6 +20,14 @@ const usersData = [
     isEmailVerified: true,
   },
   {
+    fullName: "Testing Admin",
+    email: "noreply@contesthunters.com",
+    phoneNumber: "",
+    password: "$2a$08$cUQ3uMdbQjlyDF/dgn5mNuEt9fLJZqq8TaT9aKabrFuG5wND3/mPO",
+    role: "admin",
+    isEmailVerified: true,
+  },
+  {
     fullName: "Testing User",
     email: "user@gmail.com",
     phoneNumber: "01734456873",
