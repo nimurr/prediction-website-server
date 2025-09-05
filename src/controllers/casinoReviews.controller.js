@@ -75,6 +75,7 @@ const getSingleReview = catchAsync(async (req, res) => {
 
 
 const takeReview = catchAsync(async (req, res) => {
+    
     const data = req.body;
 
     const response = await casinoReviewsService.takeReview(data);

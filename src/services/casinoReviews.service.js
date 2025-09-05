@@ -52,21 +52,21 @@ const getSingleReview = async (id) => {
 };
 
 const takeReview = async (data) => {
+
     const review = await TakeReview.create(data);
     if (!review) {
         throw new Error('Failed to submit review');
     }
 
     const reviewedUsers = await Review.findById(review.postId);
-
     reviewedUsers.reviewedUsers.push(review._id);
-    await reviewedUsers.save();
 
+    await reviewedUsers.save();
     return review;
 }
 
 const getAllThisPostReviews = async (id) => {
-    const response = await TakeReview.find({ postId: id });
+    const response = await TakeReview.find({ postId: id }).populate("userId").sort({ createdAt: -1 });;
     if (!response) {
         throw new Error('Review not Found !!!')
     }

@@ -19,6 +19,7 @@ router.get("/single/:id", casinoReviewsController.getSingleReview);
 router.delete('/all/:id', casinoReviewsController.mainReviewDelete)
 
 router.post('/take-review', casinoReviewsController.takeReview);
+
 router.get("/all-review/:id", casinoReviewsController.getAllThisPostReviews)
 router.post('/sub/add-new-section',
     [uploadUsers.single("image")],
