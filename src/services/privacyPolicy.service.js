@@ -41,7 +41,7 @@ const createAddAds = async (data) => {
         });
 
         const response = await ad.save();
-        console.log(response);
+        
         return response;
     } catch (error) {
         console.error("Error creating ad:", error);

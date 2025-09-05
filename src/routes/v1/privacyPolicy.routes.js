@@ -14,8 +14,10 @@ router.get('/', privacyPolicyController.getPrivacyPolicy);
 // Example: POST to update privacy policy
 router.post('/', auth("admin"), privacyPolicyController.updatePrivacyPolicy);
 
-router.post('/add-ads', auth("admin"), [uploadUsers.single("adsImage")],
-    convertHeicToPngMiddleware(UPLOADS_FOLDER_USERS), privacyPolicyController.createAddAds)
+router.post('/add-ads', auth("admin"),
+    [uploadUsers.single("adsImage")],
+    convertHeicToPngMiddleware(UPLOADS_FOLDER_USERS),
+    privacyPolicyController.createAddAds)
 router.patch('/update-ads/:id', auth("admin"), [uploadUsers.single("adsImage")],
     convertHeicToPngMiddleware(UPLOADS_FOLDER_USERS), privacyPolicyController.updateAddAds)
 
