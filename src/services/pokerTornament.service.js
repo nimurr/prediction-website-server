@@ -93,7 +93,7 @@ const declareWinning = async (userId, predictionId) => {
     }
 
     const response = await JoinPokerTournament.findOneAndUpdate(
-        { userId, pokertournamentId: predictionId },
+        { _id: userId, pokertournamentId: predictionId },
         { isWinner: true },
         { new: true }
     );
