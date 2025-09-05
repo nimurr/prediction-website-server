@@ -82,6 +82,27 @@ const fullDetailsPokerPredictionByIdAnduserId = catchAsync(async (req, res) => {
     });
 });
 
+const fullDetailsPoker = catchAsync(async (req, res) => {
+    const { userId, predictionId } = req.query;
+    const response = await pokerTornamentService.fullDetailsPoker(userId, predictionId);
+    res.status(200).send({
+        message: 'Full details retrieved successfully',
+        status: 'success',
+        code: 200,
+        data: response,
+    });
+});
+
+const declareWinning = catchAsync(async (req, res) => {
+    const { userId, predictionId } = req.query;
+    const response = await pokerTornamentService.declareWinning(userId, predictionId);
+    res.status(200).send({
+        message: 'Winning declared successfully',
+        status: 'success',
+        code: 200,
+        data: response,
+    });
+});
 
 module.exports = {
     createPokerTornament,
@@ -90,5 +111,7 @@ module.exports = {
     updatePokerTournament,
     deletePokerTournament,
     joinPokerTournament,
+    fullDetailsPoker,
+    declareWinning,
     fullDetailsPokerPredictionByIdAnduserId
 };

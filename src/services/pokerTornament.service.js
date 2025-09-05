@@ -63,8 +63,10 @@ const joinPokerTournament = async (data) => {
 }
 
 const fullDetailsPokerPredictionByIdAnduserId = async (userId, predictionId) => {
-    const pokerTournament = await PokerTournament.findById(predictionId);
+    const pokerTournament = await PokerTournament.findById(predictionId).populate("applyPokerTournamentUsers");
+    
     const userInfo = await JoinPokerTournament.find({ userId, pokertournamentId: predictionId }).populate("userId");
+   
     if (!pokerTournament || !userInfo) {
         throw new Error("No data found");
     }
@@ -72,6 +74,25 @@ const fullDetailsPokerPredictionByIdAnduserId = async (userId, predictionId) => 
         pokerTournament,
         userInfo
     };
+    return response;
+};
+
+const declareWinning = async (userId, predictionId) => {
+
+    // if already declared
+    const alreadyDeclared = await JoinPokerTournament.findOne({ userId, pokertournamentId: predictionId, isWinner: true });
+    if (alreadyDeclared) {
+        throw new Error("User has already been declared the winner");
+    }
+
+    const response = await JoinPokerTournament.findOneAndUpdate(
+        { userId, pokertournamentId: predictionId },
+        { isWinner: true },
+        { new: true }
+    );
+    if (!response) {
+        throw new Error("User not found or failed to declare winner");
+    }
     return response;
 };
 
@@ -83,5 +104,6 @@ module.exports = {
     updatePokerTournament,
     deletePokerTournament,
     joinPokerTournament,
+    declareWinning,
     fullDetailsPokerPredictionByIdAnduserId
 };

@@ -25,7 +25,7 @@ router.delete("/delete/:id", auth("admin"), pokerTornamentController.deletePoker
 // here create a api for submit Join poker tornament
 
 router.post("/join-tournament", auth("common"), pokerTornamentController.joinPokerTournament);
-
 router.get("/full-poker-prediction", pokerTornamentController.fullDetailsPokerPredictionByIdAnduserId);
+router.patch("/declare-winning", pokerTornamentController.declareWinning);
 
 module.exports = router;
