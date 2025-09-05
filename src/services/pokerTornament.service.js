@@ -62,12 +62,15 @@ const joinPokerTournament = async (data) => {
     return response;
 }
 
-const fullDetailsPokerPredictionByIdAnduserId = async (userId, predictionId) => {
+const fullDetailsPokerPredictionByIdAnduserId = async ({ userId, predictionId }) => {
     const pokerTournament = await PokerTournament.findById(predictionId)
-        .populate("applyPokerTournamentUsers");
+        .populate({
+            path: "applyPokerTournamentUsers",
+            match: { userId }
+        });
 
     const userInfo = await JoinPokerTournament.find({
-        userId,
+        _id: userId,
         pokertournamentId: predictionId
     }).populate("userId");
 
@@ -76,7 +79,6 @@ const fullDetailsPokerPredictionByIdAnduserId = async (userId, predictionId) => 
     }
 
     const response = { pokerTournament, userInfo }
-
 
     return response;
 };

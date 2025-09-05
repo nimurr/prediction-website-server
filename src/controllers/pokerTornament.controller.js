@@ -73,7 +73,7 @@ const joinPokerTournament = catchAsync(async (req, res) => {
 
 const fullDetailsPokerPredictionByIdAnduserId = catchAsync(async (req, res) => {
     const { userId, predictionId } = req.query;
-    const response = await pokerTornamentService.fullDetailsPokerPredictionByIdAnduserId(userId, predictionId);
+    const response = await pokerTornamentService.fullDetailsPokerPredictionByIdAnduserId({ userId, predictionId });
     res.status(200).send({
         message: 'Full details retrieved successfully',
         status: 'success',
