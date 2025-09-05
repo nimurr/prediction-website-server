@@ -75,9 +75,10 @@ const fullDetailsPokerPredictionByIdAnduserId = async (userId, predictionId) => 
         throw new Error("No data found");
     }
 
-    
+    const response = { pokerTournament, userInfo }
 
-    return { pokerTournament, userInfo };
+
+    return response;
 };
 
 
