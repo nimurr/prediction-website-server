@@ -46,7 +46,6 @@ const getAllReviews = async () => {
             : 0;
     });
 
-    reviews.save();
 
     if (!reviews) {
         throw new Error('Failed to retrieve reviews');
