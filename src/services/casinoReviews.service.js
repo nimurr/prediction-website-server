@@ -36,7 +36,18 @@ const handleChangeImage = async (data) => {
 
 
 const getAllReviews = async () => {
+
     const reviews = await Review.find({}).populate("reviewedUsers");
+
+    reviews.forEach(review => {
+        const ratings = review.reviewedUsers.map(u => u.rating);
+        review.userAvgRating = ratings.length > 0
+            ? ratings.reduce((a, b) => a + b, 0) / ratings.length
+            : 0;
+    });
+
+    reviews.save();
+
     if (!reviews) {
         throw new Error('Failed to retrieve reviews');
     }
