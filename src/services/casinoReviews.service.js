@@ -34,9 +34,7 @@ const handleChangeImage = async (data) => {
     return review;
 };
 
-
 const getAllReviews = async () => {
-
     const reviews = await Review.find({}).populate("reviewedUsers");
 
     reviews.forEach(review => {
@@ -45,7 +43,6 @@ const getAllReviews = async () => {
             ? ratings.reduce((a, b) => a + b, 0) / ratings.length
             : 0;
     });
-
 
     if (!reviews) {
         throw new Error('Failed to retrieve reviews');
@@ -56,16 +53,16 @@ const getAllReviews = async () => {
 const getSingleReview = async (id) => {
     const review = await Review.findById(id).populate("reviewedUsers");
 
-    review.forEach(review => {
-        const ratings = review.reviewedUsers.map(u => u.rating);
-        review.userAvgRating = ratings.length > 0
-            ? ratings.reduce((a, b) => a + b, 0) / ratings.length
-            : 0;
-    });
-    
     if (!review) {
         throw new Error('Failed to retrieve review');
     }
+
+    // calculate avg rating for single review
+    const ratings = review.reviewedUsers.map(u => u.rating);
+    review.userAvgRating = ratings.length > 0
+        ? ratings.reduce((a, b) => a + b, 0) / ratings.length
+        : 0;
+
     return review;
 };
 
