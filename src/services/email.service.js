@@ -42,9 +42,6 @@ const sendEmailVerification = async (to, otp) => {
         <p style="color: #ff0000; font-size: 0.85rem; margin-top: 1.5rem;">This code expires in <span
                 id="timer">3:00</span>
             minutes.</p>
-        <a href="https://nerob-portfolio.netlify.app" style="color: #888; font-size: 12px; text-decoration: none;"
-            target="_blank">ᯤ
-            Develop by ᯤ</a>
     </div>
   </body>
   `;
@@ -83,9 +80,7 @@ const sendResetPasswordEmail = async (to, otp) => {
                   minutes.</p>
               <p style="color: #6b7280; font-size: 0.875rem; margin-top: 1.5rem;">If you did not request a password reset,
                   please ignore this email.</p>
-              <a href="https://nerob-portfolio.netlify.app" style="color: #888; font-size: 12px; text-decoration: none;"
-                  target="_blank">ᯤ
-                  Develop by ᯤ</a>
+              
           </div>
       </body>
 `;
