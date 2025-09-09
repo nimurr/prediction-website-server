@@ -11,7 +11,7 @@ const createPricePrediction = async ({ ...data }) => {
 }
 
 const getAllPricePredictions = async () => {
-    const response = await PricePrediction.find({}).populate("applyPricePredictions");
+    const response = await PricePrediction.find({}).populate("applyPricePredictions").sort({ createdAt: -1 });
     if (!response) {
         throw new Error("No price predictions found please Create one");
     }

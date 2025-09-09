@@ -12,7 +12,7 @@ const createScorePrediction = async ({ ...data }) => {
 
 const getAllScorePredictions = async () => {
     // Logic for getting all score predictions
-    const response = await ScorePrediction.find({}).populate("applyAllPredictions");
+    const response = await ScorePrediction.find({}).populate("applyAllPredictions").sort({ createdAt: -1 });
     if (!response) {
         throw new Error("No score predictions found");
     }

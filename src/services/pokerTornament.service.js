@@ -5,7 +5,7 @@ const createPokerTornament = async ({ ...data }) => {
     return response;
 }
 const getAllPokerTournaments = async () => {
-    const response = await PokerTournament.find({}).populate("applyPokerTournamentUsers");
+    const response = await PokerTournament.find({}).populate("applyPokerTournamentUsers").sort({ createdAt: -1 });
     if (!response || response.length === 0) {
         throw new Error("No poker tournaments found");
     }

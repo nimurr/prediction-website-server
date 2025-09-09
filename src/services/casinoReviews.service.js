@@ -35,7 +35,7 @@ const handleChangeImage = async (data) => {
 };
 
 const getAllReviews = async () => {
-    const reviews = await Review.find({}).populate("reviewedUsers");
+    const reviews = await Review.find({}).populate("reviewedUsers").sort({ createdAt: -1 });
 
     reviews.forEach(review => {
         const ratings = review.reviewedUsers.map(u => u.rating);
