@@ -13,7 +13,7 @@ const createUser = async (userBody) => {
   if (userBody.role === "user" || userBody.role === "admin") {
     const res = await sendEmailVerification(userBody.email, oneTimeCode);
 
-    console.log("dfasdf" , res);
+    console.log("dfasdf", res);
 
   }
   return User.create({ ...userBody, oneTimeCode });
@@ -117,7 +117,7 @@ const isUpdateUser = async (userId, updateBody) => {
 
 
 const getDashboardStatus = async () => {
-  const totalUsers = await User.countDocuments({ isDeleted: false, role: "user" });
+  const totalUsers = await User.countDocuments({ isDeleted: false, role: "user", isEmailVerified: true });
   const totalPoker = await PokerTournament.countDocuments();
   const totalPricePredictions = await PricePrediction.countDocuments(); // Placeholder, replace with actual logic if needed
   const totalScorePredictions = await ScorePrediction.countDocuments(); // Placeholder, replace with actual logic if needed
@@ -125,7 +125,7 @@ const getDashboardStatus = async () => {
   // daily new users & last 30 days
   const usersActivity = await User.aggregate([
     {
-      $match: { isDeleted: false, role: "user" },
+      $match: { isDeleted: false, role: "user", isEmailVerified: true },
     },
     {
       $group: {
@@ -158,7 +158,7 @@ const getDashboardStatus = async () => {
   ]);
 
   // resent 10 users 
-  const recentUsers = await User.find({ isDeleted: false, role: "user" })
+  const recentUsers = await User.find({ isDeleted: false, role: "user", isEmailVerified: true })
     .sort({ createdAt: -1 })
     .limit(10)
     .select("fullName email role createdAt");
