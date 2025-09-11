@@ -42,7 +42,7 @@ const sendEmailVerification = async (to, otp) => {
         </div>
         <p style="color: #4b5563; margin-bottom: 1.5rem;">Collect this code to verify your account.</p>
         <p style="color: #ff0000; font-size: 0.85rem; margin-top: 1.5rem;">This code expires in <span
-                id="timer">3:00</span>
+                id="timer">15:00</span>
             minutes.</p>
     </div>
   </body>
@@ -79,7 +79,7 @@ const sendResetPasswordEmail = async (to, otp) => {
               </div>
               <p style="color: #d6471c; margin-bottom: 1.5rem;">Collect this code to reset your password. This code is valid
                   for
-                  3
+                  15
                   minutes.</p>
               <p style="color: #6b7280; font-size: 0.875rem; margin-top: 1.5rem;">If you did not request a password reset,
                   please ignore this email.</p>
