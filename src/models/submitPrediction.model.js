@@ -14,6 +14,7 @@ const submitPredictionSchema = new mongoose.Schema({
   email: { type: String },
   predictionSide1: { type: String, required: true },
   predictionSide2: { type: String, required: true },
+  screenShortUrl: { type: String, required: true },
   status: { type: String, enum: ["submitted", "pending", "completed"], default: "submitted" },
 }, { timestamps: true });
 
