@@ -20,6 +20,16 @@ const pricePredictionSchema = new mongoose.Schema({
     required: [true, "Predicted Price is required"],
     trim: true,
   },
+  sponsorLink: {
+    type: String,
+    required: [true, "Sponsor link is required"],
+    trim: true,
+  },
+  sponsorName: {
+    type: String,
+    required: [true, "Sponsor name is required"],
+    trim: true,
+  },
   predictionDeadline: {
     type: Date,
     required: [true, "Prediction deadline is required"],
