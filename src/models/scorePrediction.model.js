@@ -26,6 +26,16 @@ const scorePredictionSchema = new mongoose.Schema({
         required: [true, "Second team name is required"], // ✅ fixed
         trim: true,
     },
+    sponsorName: {
+        type: String,
+        required: [true, "Sponsor name is required"], // ✅ fixed
+        trim: true,
+    },
+    sponsorLink: {
+        type: String,
+        required: [true, "Sponsor link is required"], // ✅ fixed
+        trim: true,
+    },
     predictionDeadline: {
         type: Date,
         required: [true, "Prediction deadline is required"], // ✅ fixed
