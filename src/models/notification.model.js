@@ -3,27 +3,27 @@ const { Schema } = mongoose;
 const { roles } = require("../config/roles");
 
 const notificationSchema = new Schema({
-    userId: {
-        type: Schema.Types.ObjectId,
-        ref: 'User',
-        required: true
-    },
-    sendBy: {
-        type: Schema.Types.ObjectId,
-        ref: 'User',
-        required: false
-    },
-    transactionId: {
-        type: String,
-        required: false,
-        default: null
-    },
-    role: {
-        type: String,
-        required: false,
-        enum: roles,
-        default: null,
-    },
+    // userId: {
+    //     type: Schema.Types.ObjectId,
+    //     ref: 'User',
+    //     required: true
+    // },
+    // sendBy: {
+    //     type: Schema.Types.ObjectId,
+    //     ref: 'User',
+    //     required: false
+    // },
+    // transactionId: {
+    //     type: String,
+    //     required: false,
+    //     default: null
+    // },
+    // role: {
+    //     type: String,
+    //     required: false,
+    //     enum: roles,
+    //     default: null,
+    // },
     title: {
         type: String,
     },

@@ -1,7 +1,11 @@
-const { PokerTournament, JoinPokerTournament } = require("../models");
+const { PokerTournament, JoinPokerTournament, Notification } = require("../models");
 
 const createPokerTornament = async ({ ...data }) => {
     const response = await PokerTournament.create(data);
+    await Notification.create({
+        title: "New Poker Prediction Created",
+        content: "A new Poker prediction has been created. Check it out!",
+    });
     return response;
 }
 const getAllPokerTournaments = async () => {
@@ -9,6 +13,7 @@ const getAllPokerTournaments = async () => {
     if (!response || response.length === 0) {
         throw new Error("No poker tournaments found");
     }
+
     return response;
 }
 
@@ -58,6 +63,12 @@ const joinPokerTournament = async (data) => {
 
     applyAllPredictions.applyPokerTournamentUsers.push(response._id);
     await applyAllPredictions.save();
+
+    await Notification.create({
+        title: "A New Poker Prediction Submitted",
+        content: "A user has submitted a new prediction. Check it out!",
+    });
+
 
     return response;
 }

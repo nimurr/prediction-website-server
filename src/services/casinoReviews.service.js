@@ -1,4 +1,4 @@
-const { TakeReview, Review, AddNewSection, HandleChangeImage } = require("../models");
+const { TakeReview, Review, AddNewSection, HandleChangeImage, Notification } = require("../models");
 
 
 
@@ -8,8 +8,11 @@ const createReview = async (data) => {
     if (!review) {
         throw new Error('Failed to create review');
     }
+    await Notification.create({
+        title: "New Review Created",
+        content: "A new Review has been created. Check it out!",
+    });
 
-    console.log(review);
     return review;
 };
 
@@ -77,6 +80,13 @@ const takeReview = async (data) => {
     reviewedUsers.reviewedUsers.push(review._id);
 
     await reviewedUsers.save();
+
+    await Notification.create({
+        title: "A New Review Submitted in a Post",
+        content: "A user has submitted a new review. Check it out!",
+    });
+
+
     return review;
 }
 

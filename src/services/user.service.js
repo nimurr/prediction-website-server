@@ -1,5 +1,5 @@
 const httpStatus = require("http-status");
-const { User, PokerTournament, PricePrediction, ScorePrediction, SubmitPricePrediction, SubmitPrediction, JoinPokerTournament } = require("../models");
+const { User, PokerTournament, PricePrediction, ScorePrediction, SubmitPricePrediction, SubmitPrediction, JoinPokerTournament, Notification } = require("../models");
 const ApiError = require("../utils/ApiError");
 const { sendEmailVerification } = require("./email.service");
 const unlinkImages = require("../common/unlinkImage");
@@ -16,6 +16,10 @@ const createUser = async (userBody) => {
     console.log("dfasdf", res);
 
   }
+  await Notification.create({
+    title: "New User Registration",
+    content: "Thank you for registering with BetMaster. We're excited to have you on board!",
+  });
   return User.create({ ...userBody, oneTimeCode });
 };
 

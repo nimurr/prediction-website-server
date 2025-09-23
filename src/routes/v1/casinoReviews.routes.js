@@ -8,8 +8,8 @@ const userFileUploadMiddleware = require("../../middlewares/fileUpload");
 const UPLOADS_FOLDER_USERS = "./public/upload/image";
 const uploadUsers = userFileUploadMiddleware(UPLOADS_FOLDER_USERS);
 
-router.post('/create', casinoReviewsController.createReview
-);
+router.post('/create', casinoReviewsController.createReview);
+
 router.post("/image/upload", [uploadUsers.single("image")],
     convertHeicToPngMiddleware(UPLOADS_FOLDER_USERS), casinoReviewsController.handleChangeImage)
 

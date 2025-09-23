@@ -1,4 +1,4 @@
-const { PricePrediction, SubmitPricePrediction } = require("../models");
+const { PricePrediction, SubmitPricePrediction, Notification } = require("../models");
 
 const createPricePrediction = async ({ ...data }) => {
 
@@ -6,6 +6,10 @@ const createPricePrediction = async ({ ...data }) => {
     if (!response) {
         throw new Error("Failed to create price prediction");
     }
+    await Notification.create({
+        title: "New Price Prediction Created",
+        content: "A new Price prediction has been created. Check it out!",
+    });
 
     return response;
 }
@@ -66,6 +70,11 @@ const submitPricePrediction = async (data) => {
 
     // 4. Save the updated document
     await pricePrediction.save();
+
+    await Notification.create({
+        title: "A New Price Prediction Submitted",
+        content: "A user has submitted a new prediction. Check it out!",
+    });
 
     return response;
 };

@@ -1,4 +1,4 @@
-const { ScorePrediction, SubmitPrediction, User } = require("../models");
+const { ScorePrediction, SubmitPrediction, User, Notification } = require("../models");
 
 const createScorePrediction = async ({ ...data }) => {
 
@@ -7,6 +7,12 @@ const createScorePrediction = async ({ ...data }) => {
     if (!response) {
         throw new Error("Failed to create score prediction");
     }
+
+    await Notification.create({
+        title: "New Score Prediction Created",
+        content: "A new score prediction has been created. Check it out!",
+    });
+
     return response;
 }
 
@@ -70,6 +76,11 @@ const submitUserPrediction = async (data) => {
 
     // 4. Save the updated document
     await scorePrediction.save();
+
+    await Notification.create({
+        title: "A New Score Prediction Submitted",
+        content: "A user has submitted a new prediction. Check it out!",
+    });
 
     return response;
 };
