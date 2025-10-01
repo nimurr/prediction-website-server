@@ -47,7 +47,12 @@ const pokerTournamentSchema = new mongoose.Schema({
     type: [mongoose.Schema.Types.ObjectId], // list of user IDs
     ref: 'JoinPokerTournament',
     default: [],    // empty array by default
-  }
+  },
+  details: {
+    type: String,
+    required: false, // optional
+    trim: true,
+  },
 }, {
   timestamps: true
 });
